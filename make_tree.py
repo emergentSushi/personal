@@ -32,11 +32,3 @@ def createTree(height):
 			root.right = createTree(height - 1)
 
 	return root
-
-
-def printTree(root, height):
-	if root != None:
-		treeOut[height] += ":" + str(root.value)
-		height += 1
-		printTree(root.left, height)
-		printTree(root.right, height)
