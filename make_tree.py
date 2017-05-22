@@ -42,7 +42,7 @@ class node:
 			return True
 		return self.value >= other.value
 
-def renderTree(root, h = 0):
+def render_tree(root, h = 0):
 	val = 'Val:' + str(root.value) + ''
 
 	if root.left is not None:
@@ -53,7 +53,7 @@ def renderTree(root, h = 0):
 	
 	return val
 
-def createTree(height, full = False):
+def create_tree(height, full = False):
 	root = node()
 	root.value = randint(0, 999)
 	if height > 1:
@@ -65,7 +65,7 @@ def createTree(height, full = False):
 
 	return root
 
-def isBalanced(root):
+def is_balanced(root):
 	return abs(height(root.left) - height(root.right)) < 2
 
 def height(root):
