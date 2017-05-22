@@ -1,5 +1,5 @@
 '''
-Generates an unordered binary tree of at least height n
+Generates an unordered binary tree of at most height n
 '''
 from random import random, randint
 
@@ -9,26 +9,66 @@ class node:
 		self.right = None
 		self.value = None
 
-	@staticmethod
-	def output(root, h = 0):
-		val = 'Val:' + str(root.value)
+	def __str__(self):
+		return node.output(self)
 
-		if root.left is not None:
-			val += '\n' + ('\t' * h) + 'L:' + node.output(root.left, h + 1)
-		
-		if root.right is not None:
-			val += '\n' + ('\t' * h) + 'R:' + node.output(root.right, h + 1)
-		
-		return val
+	def __lt__(self, other):
+		if other is None:
+			return False
+		return self.value < other.value
 
-def createTree(height):
+	def __le__(self, other):
+		if other is None:
+			return False
+		return self.value <= other.value
+
+	def __eq__(self, other):
+		if other is None:
+			return False
+		return self.value == other.value
+
+	def __ne__(self, other):
+		if other is None:
+			return True
+		return self.value != other.value
+
+	def __gt__(self, other):
+		if other is None:
+			return True
+		return self.value > other.value
+
+	def __ge__(self, other):
+		if other is None:
+			return True
+		return self.value >= other.value
+
+def renderTree(root, h = 0):
+	val = 'Val:' + str(root.value) + ''
+
+	if root.left is not None:
+		val += '\n\t' + ('\t' * h) + 'L:' + renderTree(root.left, h + 1)
+	
+	if root.right is not None:
+		val += '\n\t' + ('\t' * h) + 'R:' + renderTree(root.right, h + 1)
+	
+	return val
+
+def createTree(height, full = False):
 	root = node()
 	root.value = randint(0, 999)
-	if height > 0:
-		if random() > 0.1:
-			root.left = createTree(height - 1)
+	if height > 1:
+		if random() > 0.1 or full:
+			root.left = createTree(height - 1, full)
 
-		if random() > 0.1:
-			root.right = createTree(height - 1)
+		if random() > 0.1 or full:
+			root.right = createTree(height - 1, full)
 
 	return root
+
+def isBalanced(root):
+	return abs(height(root.left) - height(root.right)) < 2
+
+def height(root):
+	if root == None:
+		return 0;
+	return 1 + max(height(root.left), height(root.right))
