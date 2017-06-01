@@ -9,9 +9,6 @@ class node:
 		self.right = None
 		self.value = None
 
-	def __str__(self):
-		return node.output(self)
-
 	def __lt__(self, other):
 		if other is None:
 			return False
@@ -46,10 +43,10 @@ def render_tree(root, h = 0):
 	val = 'Val:' + str(root.value) + ''
 
 	if root.left is not None:
-		val += '\n\t' + ('\t' * h) + 'L:' + renderTree(root.left, h + 1)
+		val += '\n\t' + ('\t' * h) + 'L:' + render_tree(root.left, h + 1)
 	
 	if root.right is not None:
-		val += '\n\t' + ('\t' * h) + 'R:' + renderTree(root.right, h + 1)
+		val += '\n\t' + ('\t' * h) + 'R:' + render_tree(root.right, h + 1)
 	
 	return val
 
@@ -58,10 +55,10 @@ def create_tree(height, full = False):
 	root.value = randint(0, 999)
 	if height > 1:
 		if random() > 0.1 or full:
-			root.left = createTree(height - 1, full)
+			root.left = create_tree(height - 1, full)
 
 		if random() > 0.1 or full:
-			root.right = createTree(height - 1, full)
+			root.right = create_tree(height - 1, full)
 
 	return root
 
