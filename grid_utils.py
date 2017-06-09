@@ -23,11 +23,9 @@ def get_potentials(data, p, open_value = 0):
 
 	if left.x >= 0 and element_open(data, left, open_value):
 		pot.append(left)
-
 	
 	if right.x < len(data[0]) and element_open(data, right, open_value):
 		pot.append(right)
-
 	
 	if up.y >= 0 and element_open(data, up, open_value):
 		pot.append(up)

@@ -1,14 +1,9 @@
 from grid_utils import *
 
-map1 = 	[[0,0,0,0],
+grid = 	[[0,0,0,0],
 		[0,2,0,0],
 		[0,2,0,0],
 		[0,0,0,0]]
-
-map2 = 	[[1,1,1,1],
-		[1,2,1,1],
-		[1,2,1,1],
-		[1,1,1,1]]
 
 def fill(data, start, fill_value = 1):
 	starting_value = data[start.y][start.x]
@@ -26,10 +21,10 @@ def fill(data, start, fill_value = 1):
 	return data
 
 print 'Open:'
-show(map2)
+show(grid)
 
-map2 = fill(map2, point(0,0), 3)
+grid = fill(grid, point(0,0), 3)
 
 print 'Filled:'
 
-show(map2)
+show(grid)
