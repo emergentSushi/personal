@@ -42,6 +42,19 @@ class node:
 	def __str__(self):
 		return str(self.value)
 
+	def to_inorder_array(self):
+		ret = []
+
+		if self.left != None:
+			ret += self.left.to_inorder_array()
+
+		ret += [self.value]
+
+		if self.right != None:
+			ret += self.right.to_inorder_array()
+
+		return ret
+
 def render_tree(root, h = 0):
 	val = 'Val:' + str(root.value) + ''
 
@@ -90,6 +103,16 @@ def ordered(root, ascending = True):
 		return False
 
 	return ordered(lesser, ascending) and ordered(greater, ascending)
+
+def sort(root):
+	values = root.to_inorder_array()
+	sorted_root = insert(values[0])
+
+	for v in values[1:]:
+		insert(v, sorted_root)
+		pass
+
+	return sorted_root
 
 def insert(val, root = None):
 	if root == None:
