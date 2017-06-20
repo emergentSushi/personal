@@ -1,13 +1,13 @@
 '''
-Generates an unordered binary tree of at most height n
+Binary tree manipulation functions
 '''
 from random import random, randint
 
 class node:
-	def __init__(self):
+	def __init__(self, value = None):
 		self.left = None
 		self.right = None
-		self.value = None
+		self.value = value
 
 	def __lt__(self, other):
 		if other is None:
@@ -69,3 +69,40 @@ def height(root):
 	if root == None:
 		return 0;
 	return 1 + max(height(root.left), height(root.right))
+
+def ordered(root, ascending = True):
+	if root == None:
+		return True
+
+	greater = root.right
+	lesser = root.left
+	if not ascending:
+		greater = root.left
+		lesser = root.right
+
+	if lesser == None and greater == None:
+		return True
+
+	if not lesser <= root <= greater:
+		return False
+
+	return ordered(lesser, ascending) and ordered(greater, ascending)
+
+def insert(val, root = None):
+	if root == None:
+		root = node()
+		root.value = val
+		return root
+
+	if root.value >= val:
+		if root.left != None:
+			return insert(val, root.left)
+		else:
+			root.left = insert(val)
+	else:
+		if root.right != None:
+			return insert(val, root.right)
+		else:
+			root.right = insert(val)
+
+	return root
