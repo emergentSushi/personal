@@ -39,6 +39,9 @@ class node:
 			return True
 		return self.value >= other.value
 
+	def __str__(self):
+		return str(self.value)
+
 def render_tree(root, h = 0):
 	val = 'Val:' + str(root.value) + ''
 
@@ -83,7 +86,7 @@ def ordered(root, ascending = True):
 	if lesser == None and greater == None:
 		return True
 
-	if not lesser <= root <= greater:
+	if (not lesser <= root <= greater) and (not lesser <= root and greater == None):
 		return False
 
 	return ordered(lesser, ascending) and ordered(greater, ascending)
