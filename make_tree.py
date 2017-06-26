@@ -42,6 +42,11 @@ class node:
 	def __str__(self):
 		return str(self.value)
 
+
+	def is_subtree(self, subtree):
+		subtree_list = subtree.to_inorder_array()
+		return ''.join([str(x) for x in subtree_list]) in ''.join([str(x) for x in self.to_inorder_array()])
+
 	def to_inorder_array(self):
 		ret = []
 
@@ -99,6 +104,8 @@ def ordered(root, ascending = True):
 	if lesser == None and greater == None:
 		return True
 
+	#Semantics of the node class define a None value as being less than everything
+	#hence the lesser node being None is not a special case
 	if (not lesser <= root <= greater) and (not lesser <= root and greater == None):
 		return False
 
