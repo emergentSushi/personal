@@ -42,7 +42,7 @@ class node:
 	def __str__(self):
 		return str(self.value)
 
-
+	#not efficient
 	def is_subtree(self, subtree):
 		subtree_list = subtree.to_inorder_array()
 		return ''.join([str(x) for x in subtree_list]) in ''.join([str(x) for x in self.to_inorder_array()])
