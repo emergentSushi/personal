@@ -1,3 +1,6 @@
+'''
+Basic grid algorithms
+'''
 class point:
 	def __init__(self):
 		self.x = 0
@@ -10,9 +13,11 @@ class point:
 	def __str__(self):
 		return "(" + str(self.x) + " " + str(self.y) + ")"
 
-def element_open(data, p, contains = 0):
-	return data[p.y][p.x] == contains
+#returns true if the given point (p) in the grid (data) is open (== 0 or == open_value)
+def element_open(data, p, open_value = 0):
+	return data[p.y][p.x] == open_value
 
+#returns a list of all possible open
 def get_potentials(data, p, open_value = 0):
 	left = point(p.x - 1, p.y)
 	right = point(p.x + 1, p.y)
@@ -35,6 +40,22 @@ def get_potentials(data, p, open_value = 0):
 		pot.append(down)
 
 	return pot
+
+#flood fill
+def fill(data, start, fill_value = 1):
+	starting_value = data[start.y][start.x]
+
+	if starting_value == fill_value:
+		return data
+
+	data[start.y][start.x] = fill_value
+
+	nexts = get_potentials(data, start, starting_value)
+
+	for n in nexts:
+		data = fill(data, n, fill_value)
+
+	return data
 
 def show(layout):
 	for row in layout:

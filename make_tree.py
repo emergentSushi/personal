@@ -60,6 +60,7 @@ class node:
 
 		return ret
 
+#returns a command line friendly string representation of the tree, optional h(eight) arg used to figure out identation
 def render_tree(root, h = 0):
 	val = 'Val:' + str(root.value) + ''
 
@@ -71,6 +72,7 @@ def render_tree(root, h = 0):
 	
 	return val
 
+#generates an unordered generated binary tree of at most height, optionally fully populated
 def create_tree(height, full = False):
 	root = node()
 	root.value = randint(0, 999)
@@ -83,6 +85,7 @@ def create_tree(height, full = False):
 
 	return root
 
+#check if tree is balanced, we define balanced as having no subtrees with a height difference of more than 1
 def is_balanced(root):
 	return abs(height(root.left) - height(root.right)) < 2
 
@@ -91,6 +94,7 @@ def height(root):
 		return 0;
 	return 1 + max(height(root.left), height(root.right))
 
+#returns true if the tree is ordered
 def ordered(root, ascending = True):
 	if root == None:
 		return True
@@ -111,6 +115,8 @@ def ordered(root, ascending = True):
 
 	return ordered(lesser, ascending) and ordered(greater, ascending)
 
+#sorts the supplied tree, theoretical runtime of O(n log n), but that assumes a balanced tree at every stage
+#worst case O(n^2)
 def sort(root):
 	values = root.to_inorder_array()
 	sorted_root = insert(values[0])
@@ -121,6 +127,7 @@ def sort(root):
 
 	return sorted_root
 
+#insert the given element into an already sorted tree
 def insert(val, root = None):
 	if root == None:
 		root = node()
