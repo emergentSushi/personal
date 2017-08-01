@@ -42,30 +42,48 @@ class heap:
 		start = self.get_parent(self._last)
 
 		while start >= 0:
-			self.siftDown(start)
-			start -= 1
+			root = start
 
-	def siftDown(self, start):
-		root = start
+			while self.get_left(root) <= self._last:
+				left_child = self.get_left(root)
+				right_child = self.get_right(root)
+				swap = root
 
-		while self.get_left(root) <= self._last:
-			left = self.get_left(root)
-			right = self.get_right(root)
-			swap = root
+				if self._store[swap] < self._store[left_child]:
+					swap = left_child
+				
+				if right_child <= self._last and self._store[swap] <= self._store[right_child]:
+					swap = right_child
 
-			if self._store[swap] < self._store[left]:
-				swap = left
-			
-			if right <= self._last and self._store[swap] <= self._store[right]:
-				swap = right
+				if swap == root:
+					break #all is right in the universe, swap >= left and swap >= right
+				else:
+					self.swap(root, swap)
+					root = swap
 
-			if swap == root:
-				return
-			else:
-				self.swap(root, swap)
-				root = swap
+			start -= 1 #move on to the next lowest node
 
 	def insert(self, value):
 		self._store[self._last] = value
 		self.heapify()
 		self._last += 1
+
+h = heap()
+
+
+for x in xrange(1,10):
+	h.insert(x)
+	pass
+
+print str(h)
+
+print h.pop()
+print h.pop()
+print h.pop()
+print h.pop()
+print h.pop()
+print h.pop()
+print h.pop()
+print h.pop()
+
+print h
