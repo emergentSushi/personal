@@ -1,8 +1,6 @@
-from make_tree import render_tree
-
 class heap:
 	def __init__(self):
-		self._store = [None] * 100
+		self._store = []
 		self._last = 0
 
 	def get_parent(self, i):
@@ -23,6 +21,9 @@ class heap:
 	def __str__(self):
 		return "".join([str(x) for x in self._store if x != None])
 
+	def empty(self):
+		return self._last == 0
+
 	__repr__ = __str__
 
 	def peek(self):
@@ -30,13 +31,16 @@ class heap:
 
 	def pop(self):
 		max = self._store[0]
-		self._store[0] = self._store[self._last]
-		self._store[self._last] = None
+		self._store[0] = self._store[self._last - 1]
+		self._store[self._last - 1] = None
 		self._last -= 1
 
 		self.heapify()
 
 		return max
+
+	def trim(self):
+		self._store = self._store[0:self._last + 1]
 
 	def heapify(self):
 		start = self.get_parent(self._last)
@@ -64,6 +68,6 @@ class heap:
 			start -= 1 #move on to the next lowest node
 
 	def insert(self, value):
-		self._store[self._last] = value
+		self._store.append(value)
 		self.heapify()
 		self._last += 1
