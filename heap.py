@@ -67,23 +67,3 @@ class heap:
 		self._store[self._last] = value
 		self.heapify()
 		self._last += 1
-
-h = heap()
-
-
-for x in xrange(1,10):
-	h.insert(x)
-	pass
-
-print str(h)
-
-print h.pop()
-print h.pop()
-print h.pop()
-print h.pop()
-print h.pop()
-print h.pop()
-print h.pop()
-print h.pop()
-
-print h
