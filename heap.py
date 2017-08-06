@@ -8,7 +8,7 @@ class heap:
 		if key == None:
 			key = lambda a, b : a <= b
 
-		self._key = key
+		self._is_ordered = key
 		self._store = []
 		self._last = 0
 
@@ -61,10 +61,10 @@ class heap:
 				right_child = self.get_right(root)
 				swap = root
 
-				if self._key(self._store[swap], self._store[left_child]):
+				if self._is_ordered(self._store[swap], self._store[left_child]):
 					swap = left_child
 				
-				if right_child <= self._last and self._key(self._store[swap], self._store[right_child]):
+				if right_child <= self._last and self._is_ordered(self._store[swap], self._store[right_child]):
 					swap = right_child
 
 				if swap == root:
