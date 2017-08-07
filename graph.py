@@ -1,3 +1,6 @@
+from Queue import Queue
+from random import randint
+
 '''
 Basic graph manipulation
 '''
@@ -31,3 +34,44 @@ def to_adjacency_matrix(vertices):
 		pass
 
 	return matrix
+
+def search(root, goal):
+	visited = [root]
+	q = Queue()
+	q.put(root)
+
+	while not q.empty():
+		current = q.get()
+		if current.value == goal:
+			return current
+		for n in current.edges:
+			if n not in visited:
+				visited.append(n)
+				q.put(n)
+
+	return None
+
+#generates a randomly linked graph of {size} elements
+def generate_graph(size, max_siblings = 2, directed = False):
+	blob = []
+
+	for i in xrange(size):
+		blob.append(vertex(i))
+		pass
+
+	for x in xrange(size):
+		for s in xrange(max_siblings):
+			add_child(randint(0, size - 1), x, blob, directed)
+
+		pass
+
+	return blob
+
+#adds node n to node x (and x to n if the graph is undirected)
+def add_child(n, x, nodes, directed):
+	if n != x:
+		if nodes[n] not in nodes[x].edges:
+			nodes[x].edges.append(nodes[n])
+
+			if not directed and nodes[x] not in nodes[n].edges:
+				nodes[n].edges.append(nodes[x])
