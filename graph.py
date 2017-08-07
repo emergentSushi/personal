@@ -44,6 +44,7 @@ def search(root, goal):
 		current = q.get()
 		if current.value == goal:
 			return current
+
 		for n in current.edges:
 			if n not in visited:
 				visited.append(n)
@@ -51,21 +52,31 @@ def search(root, goal):
 
 	return None
 
-#generates a randomly linked graph of {size} elements
+def dfs(root, goal, visited = []):
+	visited.append(root)
+
+	if root.value == goal:
+		return root
+
+	for n in root.edges:
+		if n not in visited:
+			return dfs(n, goal)
+
+#generates a randomly linked graph of {size} elements as an adjacency list
 def generate_graph(size, max_siblings = 2, directed = False):
-	blob = []
+	nodes = []
 
 	for i in xrange(size):
-		blob.append(vertex(i))
+		nodes.append(vertex(i))
 		pass
 
 	for x in xrange(size):
 		for s in xrange(max_siblings):
-			add_child(randint(0, size - 1), x, blob, directed)
+			add_child(randint(0, size - 1), x, nodes, directed)
 
 		pass
 
-	return blob
+	return nodes
 
 #adds node n to node x (and x to n if the graph is undirected)
 def add_child(n, x, nodes, directed):
